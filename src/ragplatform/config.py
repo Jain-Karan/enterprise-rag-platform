@@ -35,6 +35,10 @@ class RetrievalConfig(BaseModel):
     # BM25 scores the breadcrumb (title > section) as a separate field with this weight.
     # Folding it into the body lets length normalisation favour short boilerplate chunks.
     heading_weight: float = 1.0
+    # RRF weights per retriever. Lower vector_weight when the embedder is weak on the
+    # tenant's vocabulary; raise it with a strong domain embedding model.
+    bm25_weight: float = 1.0
+    vector_weight: float = 0.3  # tuned for the offline HashingEmbedder; see README
 
 
 class LLMConfig(BaseModel):
