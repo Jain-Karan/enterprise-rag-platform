@@ -5,9 +5,10 @@
     "chunks": 117,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.8806451612903226,
-    "doc_recall": 0.967741935483871,
-    "mrr": 0.8145161290322581
+    "answer_recall": 1.0,
+    "attributable_recall": 0.4935483870967742,
+    "doc_recall": 1.0,
+    "mrr": 0.8931720430107525
   },
   {
     "tenant": "acme-insurance",
@@ -16,6 +17,7 @@
     "questions": 310,
     "k": 5,
     "answer_recall": 0.6741935483870968,
+    "attributable_recall": 0.4064516129032258,
     "doc_recall": 0.7967741935483871,
     "mrr": 0.5216666666666666
   },
@@ -25,9 +27,10 @@
     "chunks": 117,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.832258064516129,
-    "doc_recall": 0.9,
-    "mrr": 0.7489247311827959
+    "answer_recall": 0.864516129032258,
+    "attributable_recall": 0.4935483870967742,
+    "doc_recall": 0.932258064516129,
+    "mrr": 0.7709139784946235
   },
   {
     "tenant": "acme-insurance",
@@ -35,9 +38,10 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.9161290322580645,
-    "doc_recall": 0.9935483870967742,
-    "mrr": 0.7951612903225809
+    "answer_recall": 1.0,
+    "attributable_recall": 1.0,
+    "doc_recall": 1.0,
+    "mrr": 0.7776881720430109
   },
   {
     "tenant": "acme-insurance",
@@ -46,6 +50,7 @@
     "questions": 310,
     "k": 5,
     "answer_recall": 0.5419354838709678,
+    "attributable_recall": 0.5419354838709678,
     "doc_recall": 0.9161290322580645,
     "mrr": 0.3524731182795699
   },
@@ -55,9 +60,10 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.7580645161290323,
-    "doc_recall": 0.9903225806451613,
-    "mrr": 0.5171505376344088
+    "answer_recall": 0.7903225806451613,
+    "attributable_recall": 0.7903225806451613,
+    "doc_recall": 0.9870967741935484,
+    "mrr": 0.5315053763440862
   },
   {
     "tenant": "acme-insurance",
@@ -65,9 +71,10 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.9161290322580645,
+    "answer_recall": 0.9096774193548387,
+    "attributable_recall": 0.9096774193548387,
     "doc_recall": 0.9935483870967742,
-    "mrr": 0.8738709677419354
+    "mrr": 0.8790860215053763
   },
   {
     "tenant": "northwind-bank",
@@ -75,9 +82,10 @@
     "chunks": 47,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.974025974025974,
+    "answer_recall": 1.0,
+    "attributable_recall": 0.8181818181818182,
     "doc_recall": 1.0,
-    "mrr": 0.961038961038961
+    "mrr": 0.971861471861472
   },
   {
     "tenant": "northwind-bank",
@@ -86,6 +94,7 @@
     "questions": 77,
     "k": 5,
     "answer_recall": 0.948051948051948,
+    "attributable_recall": 0.7922077922077922,
     "doc_recall": 0.974025974025974,
     "mrr": 0.7069264069264072
   },
@@ -96,8 +105,9 @@
     "questions": 77,
     "k": 5,
     "answer_recall": 0.8831168831168831,
+    "attributable_recall": 0.7142857142857143,
     "doc_recall": 0.8961038961038961,
-    "mrr": 0.8538961038961039
+    "mrr": 0.8571428571428571
   },
   {
     "tenant": "northwind-bank",
@@ -105,9 +115,10 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.8961038961038961,
+    "answer_recall": 1.0,
+    "attributable_recall": 1.0,
     "doc_recall": 1.0,
-    "mrr": 0.7179653679653679
+    "mrr": 0.8549783549783551
   },
   {
     "tenant": "northwind-bank",
@@ -116,6 +127,7 @@
     "questions": 77,
     "k": 5,
     "answer_recall": 0.7402597402597403,
+    "attributable_recall": 0.7402597402597403,
     "doc_recall": 0.961038961038961,
     "mrr": 0.465151515151515
   },
@@ -125,9 +137,10 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.8701298701298701,
+    "answer_recall": 0.922077922077922,
+    "attributable_recall": 0.922077922077922,
     "doc_recall": 1.0,
-    "mrr": 0.618181818181818
+    "mrr": 0.683982683982684
   },
   {
     "tenant": "northwind-bank",
@@ -135,8 +148,9 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.987012987012987,
-    "doc_recall": 0.987012987012987,
-    "mrr": 0.8854978354978356
+    "answer_recall": 0.935064935064935,
+    "attributable_recall": 0.935064935064935,
+    "doc_recall": 0.935064935064935,
+    "mrr": 0.8874458874458874
   }
 ]

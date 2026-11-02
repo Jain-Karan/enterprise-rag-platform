@@ -5,6 +5,10 @@ Golden set format (JSONL), one question per line:
 
 Metrics
 - answer_recall@k : share of questions where a top-k chunk contains the answer string
+- attributable@k  : same, but that chunk must also name its document (contain the title).
+                    A bare table row "| Senior Adjuster | $742,300 |" contains the answer but
+                    gives the model no way to tell which policy it came from, so it can be
+                    attributed to the wrong document. This is what chunking strategy changes.
 - doc_recall@k    : share of questions where a top-k chunk comes from the right document
 - mrr             : mean reciprocal rank of the first chunk containing the answer
 """
@@ -30,6 +34,7 @@ class BenchResult:
     questions: int
     k: int
     answer_recall: float
+    attributable_recall: float
     doc_recall: float
     mrr: float
     misses: list[str]
@@ -44,7 +49,7 @@ def load_golden(path: str | Path) -> list[dict]:
 
 
 def evaluate(retrieve, golden: list[dict], k: int) -> BenchResult:  # noqa: ANN001
-    ans_hits = doc_hits = 0
+    ans_hits = doc_hits = attributable = 0
     rr_total = 0.0
     misses: list[str] = []
     for g in golden:
@@ -54,6 +59,11 @@ def evaluate(retrieve, golden: list[dict], k: int) -> BenchResult:  # noqa: ANN0
         if rank:
             ans_hits += 1
             rr_total += 1.0 / rank
+            if any(
+                target in _norm(h.chunk.text) and _norm(h.chunk.title) in _norm(h.chunk.text)
+                for h in hits
+            ):
+                attributable += 1
         else:
             misses.append(g["id"])
         if any(h.chunk.doc_id == g["doc_id"] for h in hits):
@@ -63,6 +73,7 @@ def evaluate(retrieve, golden: list[dict], k: int) -> BenchResult:  # noqa: ANN0
         questions=len(golden),
         k=k,
         answer_recall=ans_hits / n,
+        attributable_recall=attributable / n,
         doc_recall=doc_hits / n,
         mrr=rr_total / n,
         misses=misses,
