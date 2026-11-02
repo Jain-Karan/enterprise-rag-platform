@@ -52,3 +52,16 @@ def test_fixed_window_overlap():
 def test_fixed_window_rejects_bad_overlap():
     with pytest.raises(ValueError):
         FixedWindowChunker(10, 10)
+
+
+def test_h1_matching_title_is_not_repeated_in_breadcrumb():
+    md = "# Claims Standard: Auto\n\n## Authority\n\n| Role | Limit |\n|---|---|\n| A | $1 |"
+    chunks = LayoutAwareChunker().chunk(_doc(md), "t")
+    assert chunks[0].heading_path == ("Authority",)
+    assert chunks[0].text.splitlines()[0] == "Claims Standard: Auto > Authority"
+
+
+def test_h1_different_from_title_is_kept():
+    md = "# Appendix\n\ntext"
+    chunks = LayoutAwareChunker().chunk(_doc(md), "t")
+    assert chunks[0].heading_path == ("Appendix",)
