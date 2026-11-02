@@ -1,0 +1,19 @@
+# Benchmark tenants: the synthetic corpus in benchmarks/data, read through local connectors that
+# stand in for SharePoint, Confluence and S3 (same document formats, no credentials needed).
+data_dir: ../.ragdata/bench
+tenants:
+  - tenant_id: acme-insurance
+    display_name: Acme Insurance (synthetic)
+    api_keys: ["${ACME_API_KEY}"]
+    benchmark: ../benchmarks/data/acme-insurance/golden.jsonl
+    sources:
+      - { name: sharepoint-policies, type: local, params: { root: ../benchmarks/data/acme-insurance/sharepoint-policies } }
+      - { name: confluence-wiki,     type: local, params: { root: ../benchmarks/data/acme-insurance/confluence-wiki } }
+      - { name: s3-exports,          type: local, params: { root: ../benchmarks/data/acme-insurance/s3-exports } }
+  - tenant_id: northwind-bank
+    display_name: Northwind Bank (synthetic)
+    api_keys: ["${NORTHWIND_API_KEY}"]
+    benchmark: ../benchmarks/data/northwind-bank/golden.jsonl
+    sources:
+      - { name: sharepoint-runbooks, type: local, params: { root: ../benchmarks/data/northwind-bank/sharepoint-runbooks } }
+      - { name: confluence-risk,     type: local, params: { root: ../benchmarks/data/northwind-bank/confluence-risk } }

@@ -1,0 +1,142 @@
+[
+  {
+    "tenant": "acme-insurance",
+    "config": "fixed window + BM25",
+    "chunks": 117,
+    "questions": 310,
+    "k": 5,
+    "answer_recall": 0.8806451612903226,
+    "doc_recall": 0.967741935483871,
+    "mrr": 0.8145161290322581
+  },
+  {
+    "tenant": "acme-insurance",
+    "config": "fixed window + vector",
+    "chunks": 117,
+    "questions": 310,
+    "k": 5,
+    "answer_recall": 0.6741935483870968,
+    "doc_recall": 0.7967741935483871,
+    "mrr": 0.5216666666666666
+  },
+  {
+    "tenant": "acme-insurance",
+    "config": "fixed window + hybrid + rerank",
+    "chunks": 117,
+    "questions": 310,
+    "k": 5,
+    "answer_recall": 0.832258064516129,
+    "doc_recall": 0.9,
+    "mrr": 0.7489247311827959
+  },
+  {
+    "tenant": "acme-insurance",
+    "config": "layout-aware + BM25",
+    "chunks": 285,
+    "questions": 310,
+    "k": 5,
+    "answer_recall": 0.9419354838709677,
+    "doc_recall": 1.0,
+    "mrr": 0.8824731182795699
+  },
+  {
+    "tenant": "acme-insurance",
+    "config": "layout-aware + vector",
+    "chunks": 285,
+    "questions": 310,
+    "k": 5,
+    "answer_recall": 0.603225806451613,
+    "doc_recall": 0.9903225806451613,
+    "mrr": 0.39053763440860206
+  },
+  {
+    "tenant": "acme-insurance",
+    "config": "layout-aware + hybrid",
+    "chunks": 285,
+    "questions": 310,
+    "k": 5,
+    "answer_recall": 0.832258064516129,
+    "doc_recall": 1.0,
+    "mrr": 0.5789784946236558
+  },
+  {
+    "tenant": "acme-insurance",
+    "config": "layout-aware + hybrid + rerank",
+    "chunks": 285,
+    "questions": 310,
+    "k": 5,
+    "answer_recall": 0.8838709677419355,
+    "doc_recall": 1.0,
+    "mrr": 0.8660752688172043
+  },
+  {
+    "tenant": "northwind-bank",
+    "config": "fixed window + BM25",
+    "chunks": 47,
+    "questions": 77,
+    "k": 5,
+    "answer_recall": 0.974025974025974,
+    "doc_recall": 1.0,
+    "mrr": 0.961038961038961
+  },
+  {
+    "tenant": "northwind-bank",
+    "config": "fixed window + vector",
+    "chunks": 47,
+    "questions": 77,
+    "k": 5,
+    "answer_recall": 0.948051948051948,
+    "doc_recall": 0.974025974025974,
+    "mrr": 0.7069264069264072
+  },
+  {
+    "tenant": "northwind-bank",
+    "config": "fixed window + hybrid + rerank",
+    "chunks": 47,
+    "questions": 77,
+    "k": 5,
+    "answer_recall": 0.8831168831168831,
+    "doc_recall": 0.8961038961038961,
+    "mrr": 0.8538961038961039
+  },
+  {
+    "tenant": "northwind-bank",
+    "config": "layout-aware + BM25",
+    "chunks": 128,
+    "questions": 77,
+    "k": 5,
+    "answer_recall": 0.9090909090909091,
+    "doc_recall": 1.0,
+    "mrr": 0.814935064935065
+  },
+  {
+    "tenant": "northwind-bank",
+    "config": "layout-aware + vector",
+    "chunks": 128,
+    "questions": 77,
+    "k": 5,
+    "answer_recall": 0.7792207792207793,
+    "doc_recall": 1.0,
+    "mrr": 0.5218614718614718
+  },
+  {
+    "tenant": "northwind-bank",
+    "config": "layout-aware + hybrid",
+    "chunks": 128,
+    "questions": 77,
+    "k": 5,
+    "answer_recall": 0.8701298701298701,
+    "doc_recall": 1.0,
+    "mrr": 0.667965367965368
+  },
+  {
+    "tenant": "northwind-bank",
+    "config": "layout-aware + hybrid + rerank",
+    "chunks": 128,
+    "questions": 77,
+    "k": 5,
+    "answer_recall": 1.0,
+    "doc_recall": 1.0,
+    "mrr": 0.8803030303030305
+  }
+]

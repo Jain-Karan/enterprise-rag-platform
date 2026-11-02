@@ -1,0 +1,42 @@
+# Onboarding a tenant = adding a block here. Secrets are ${ENV} references, never literals.
+data_dir: ../.ragdata
+tenants:
+  - tenant_id: acme-insurance
+    display_name: Acme Insurance
+    api_keys: ["${ACME_API_KEY}"]
+    benchmark: ../benchmarks/data/acme-insurance/golden.jsonl   # run on `ragp onboard`
+    chunking: { strategy: layout, max_tokens: 220 }
+    retrieval: { mode: hybrid, top_k: 5, candidate_k: 30, rerank: true }
+    llm:
+      provider: anthropic            # anthropic | azure_foundry | fake
+      model: claude-sonnet-4-5
+    sources:
+      - name: sharepoint-policies
+        type: sharepoint
+        params:
+          site_id: "${ACME_SP_SITE_ID}"
+          tenant: "${ACME_ENTRA_TENANT_ID}"
+          client_id: "${ACME_SP_CLIENT_ID}"
+          client_secret: "${ACME_SP_CLIENT_SECRET}"
+          folder: Policies
+      - name: confluence-wiki
+        type: confluence
+        params:
+          base_url: https://acme.atlassian.net
+          space_key: CLAIMS
+          email: "${ACME_CONFLUENCE_EMAIL}"
+          api_token: "${ACME_CONFLUENCE_TOKEN}"
+      - name: s3-exports
+        type: s3
+        params: { bucket: acme-kb-exports, prefix: policies/, region: us-east-1 }
+
+  - tenant_id: northwind-bank
+    display_name: Northwind Bank
+    api_keys: ["${NORTHWIND_API_KEY}"]
+    llm:
+      provider: azure_foundry        # model = your Azure AI Foundry deployment name
+      model: gpt-4o-prod
+    sources:
+      - name: runbooks
+        type: s3
+        params: { bucket: northwind-runbooks, region: us-east-2 }
