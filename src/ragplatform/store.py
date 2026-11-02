@@ -36,7 +36,8 @@ class TenantIndex:
         self.tenant_id = tenant_id
         self.embedder = embedder
         self.chunks: list[Chunk] = []
-        self.bm25 = BM25Index()
+        self.bm25 = BM25Index()  # chunk bodies
+        self.bm25_head = BM25Index()  # breadcrumbs: title > section path
         self.vectors = VectorIndex(embedder.dim)
 
     def __len__(self) -> int:
@@ -50,10 +51,21 @@ class TenantIndex:
                 )
         for i in range(0, len(chunks), batch_size):
             batch = chunks[i : i + batch_size]
-            texts = [c.text for c in batch]
             self.chunks.extend(batch)
-            self.bm25.add(texts)
-            self.vectors.add(self.embedder.embed(texts))
+            self.bm25.add([c.body for c in batch])
+            self.bm25_head.add([c.heading_text for c in batch])
+            self.vectors.add(self.embedder.embed([c.text for c in batch]))
+
+    def _bm25(self, query: str, cfg: RetrievalConfig) -> list[tuple[int, float]]:
+        """Two-field BM25: body score + heading_weight * breadcrumb score."""
+        scores: dict[int, float] = {}
+        for i, s in self.bm25.search(query, len(self.chunks)):
+            scores[i] = s
+        if cfg.heading_weight:
+            for i, s in self.bm25_head.search(query, len(self.chunks)):
+                scores[i] = scores.get(i, 0.0) + cfg.heading_weight * s
+        ranked = sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))
+        return ranked[: cfg.candidate_k]
 
     def search(
         self, query: str, cfg: RetrievalConfig, reranker: Reranker | None = None
@@ -62,7 +74,7 @@ class TenantIndex:
             return []
         lists = []
         if cfg.mode in ("hybrid", "bm25"):
-            lists.append(self.bm25.search(query, cfg.candidate_k))
+            lists.append(self._bm25(query, cfg))
         if cfg.mode in ("hybrid", "vector"):
             qv = self.embedder.embed([query])[0]
             lists.append(self.vectors.search(qv, cfg.candidate_k))
@@ -89,6 +101,7 @@ class TenantIndex:
             for c in self.chunks:
                 f.write(json.dumps(c.to_dict()) + "\n")
         (tmp / "bm25.json").write_text(json.dumps(self.bm25.to_dict()))
+        (tmp / "bm25_head.json").write_text(json.dumps(self.bm25_head.to_dict()))
         np.save(tmp / "vectors.npy", self.vectors.matrix)
         (tmp / "manifest.json").write_text(
             json.dumps(
@@ -117,5 +130,10 @@ class TenantIndex:
         with (directory / "chunks.jsonl").open() as f:
             idx.chunks = [Chunk.from_dict(json.loads(line)) for line in f if line.strip()]
         idx.bm25 = BM25Index.from_dict(json.loads((directory / "bm25.json").read_text()))
+        head = directory / "bm25_head.json"
+        if head.exists():
+            idx.bm25_head = BM25Index.from_dict(json.loads(head.read_text()))
+        else:  # index written before the heading field existed
+            idx.bm25_head.add([c.heading_text for c in idx.chunks])
         idx.vectors.matrix = np.load(directory / "vectors.npy")
         return idx

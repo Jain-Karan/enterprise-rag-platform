@@ -32,6 +32,9 @@ class RetrievalConfig(BaseModel):
     candidate_k: int = 30
     rrf_k: int = 60
     rerank: bool = True
+    # BM25 scores the breadcrumb (title > section) as a separate field with this weight.
+    # Folding it into the body lets length normalisation favour short boilerplate chunks.
+    heading_weight: float = 1.0
 
 
 class LLMConfig(BaseModel):
