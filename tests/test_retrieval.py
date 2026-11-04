@@ -71,3 +71,18 @@ def test_long_answer_section_beats_short_boilerplate():
     cfg = RetrievalConfig(mode="bm25", rerank=False, top_k=1)
     hits = idx.search("single payment limit for card settlement payments", cfg)
     assert "$2,337,065" in hits[0].chunk.text
+
+
+def test_weighted_rrf_down_weights_a_retriever():
+    strong = [(1, 9.0), (2, 8.0)]
+    weak = [(2, 0.9), (3, 0.8)]
+    assert reciprocal_rank_fusion([strong, weak])[0][0] == 2  # equal weights: agreement wins
+    # a near-zero weight leaves the strong retriever's order intact
+    assert reciprocal_rank_fusion([strong, weak], weights=[1.0, 0.01])[0][0] == 1
+
+
+def test_rrf_weight_count_must_match():
+    import pytest
+
+    with pytest.raises(ValueError):
+        reciprocal_rank_fusion([[(1, 1.0)]], weights=[1.0, 2.0])

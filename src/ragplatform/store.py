@@ -72,14 +72,16 @@ class TenantIndex:
     ) -> list[Hit]:
         if not self.chunks:
             return []
-        lists = []
+        lists, weights = [], []
         if cfg.mode in ("hybrid", "bm25"):
             lists.append(self._bm25(query, cfg))
+            weights.append(cfg.bm25_weight)
         if cfg.mode in ("hybrid", "vector"):
             qv = self.embedder.embed([query])[0]
             lists.append(self.vectors.search(qv, cfg.candidate_k))
+            weights.append(cfg.vector_weight)
         fused = (
-            reciprocal_rank_fusion(lists, k=cfg.rrf_k, limit=cfg.candidate_k)
+            reciprocal_rank_fusion(lists, k=cfg.rrf_k, limit=cfg.candidate_k, weights=weights)
             if len(lists) > 1
             else lists[0]
         )
