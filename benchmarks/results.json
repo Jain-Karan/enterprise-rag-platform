@@ -27,10 +27,10 @@
     "chunks": 117,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.864516129032258,
+    "answer_recall": 0.9032258064516129,
     "attributable_recall": 0.4935483870967742,
-    "doc_recall": 0.932258064516129,
-    "mrr": 0.7709139784946235
+    "doc_recall": 1.0,
+    "mrr": 0.8287096774193548
   },
   {
     "tenant": "acme-insurance",
@@ -60,10 +60,10 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.7903225806451613,
-    "attributable_recall": 0.7903225806451613,
-    "doc_recall": 0.9870967741935484,
-    "mrr": 0.5315053763440862
+    "answer_recall": 0.8870967741935484,
+    "attributable_recall": 0.8870967741935484,
+    "doc_recall": 0.9967741935483871,
+    "mrr": 0.676989247311828
   },
   {
     "tenant": "acme-insurance",
@@ -71,10 +71,10 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.9096774193548387,
-    "attributable_recall": 0.9096774193548387,
-    "doc_recall": 0.9935483870967742,
-    "mrr": 0.8790860215053763
+    "answer_recall": 0.9870967741935484,
+    "attributable_recall": 0.9870967741935484,
+    "doc_recall": 1.0,
+    "mrr": 0.946290322580645
   },
   {
     "tenant": "northwind-bank",
@@ -104,10 +104,10 @@
     "chunks": 47,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.8831168831168831,
-    "attributable_recall": 0.7142857142857143,
-    "doc_recall": 0.8961038961038961,
-    "mrr": 0.8571428571428571
+    "answer_recall": 0.987012987012987,
+    "attributable_recall": 0.8181818181818182,
+    "doc_recall": 1.0,
+    "mrr": 0.9653679653679655
   },
   {
     "tenant": "northwind-bank",
@@ -137,10 +137,10 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.922077922077922,
-    "attributable_recall": 0.922077922077922,
+    "answer_recall": 1.0,
+    "attributable_recall": 1.0,
     "doc_recall": 1.0,
-    "mrr": 0.683982683982684
+    "mrr": 0.7915584415584416
   },
   {
     "tenant": "northwind-bank",
@@ -148,9 +148,9 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.935064935064935,
-    "attributable_recall": 0.935064935064935,
-    "doc_recall": 0.935064935064935,
-    "mrr": 0.8874458874458874
+    "answer_recall": 1.0,
+    "attributable_recall": 1.0,
+    "doc_recall": 1.0,
+    "mrr": 1.0
   }
 ]

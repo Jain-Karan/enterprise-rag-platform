@@ -86,3 +86,24 @@ def test_rrf_weight_count_must_match():
 
     with pytest.raises(ValueError):
         reciprocal_rank_fusion([[(1, 1.0)]], weights=[1.0, 2.0])
+
+
+def test_reranker_weights_distinguishing_terms():
+    """Regression (benchmark miss "FedNow: single payment limit?"): every candidate matched
+    'single payment limit' as an adjacent phrase, so unweighted coverage + proximity ranked
+    other rails' limit tables above FedNow's. The rail name is the only term that separates
+    candidates and must dominate."""
+    from ragplatform.documents import Chunk
+
+    filler = "Teams may adopt stricter thresholds but may not relax the ones defined here."
+
+    def c(rail, prior):
+        text = (
+            f"Payments Operations Runbook: {rail} > Cutoff and Limits\n\n{filler}\n\n"
+            f"| Control | Value |\n| Single payment limit | $1 |\n| Daily customer limit | $2 |"
+        )
+        return (Chunk(f"{rail}#3", rail, "t", "s", rail, text), prior)
+
+    cands = [c("ACH", 1.0), c("Domestic Wire", 0.98), c("Check Clearing", 0.97), c("FedNow", 0.9)]
+    top = CoverageReranker().rerank("FedNow: single payment limit?", cands)[0][0]
+    assert top.doc_id == "FedNow"
