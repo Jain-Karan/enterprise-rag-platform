@@ -123,12 +123,17 @@ class LayoutAwareChunker:
                 out.append(_make_chunk(doc, tenant_id, len(out), f"{header_for(p)}\n\n{body}", p))
             pending, pending_tokens = [], 0
 
+        title_key = doc.title.strip().casefold()
         for b in blocks:
             if b.kind == BlockKind.HEADING:
                 emit()  # a new section always starts a new chunk
                 while stack and stack[-1][0] >= b.level:
                     stack.pop()
-                stack.append((b.level, b.text))
+                # The H1 usually *is* the document title, which the breadcrumb already starts
+                # with. Pushing it again doubles the title's term weight in every chunk, and
+                # short boilerplate chunks then outrank the section that holds the answer.
+                if b.text.strip().casefold() != title_key:
+                    stack.append((b.level, b.text))
                 continue
             budget = self.max_tokens - n_tokens(header_for(path()))
             for piece in self._split_block(b, max(budget, 20)):

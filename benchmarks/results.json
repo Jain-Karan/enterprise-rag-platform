@@ -35,9 +35,9 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.9419354838709677,
-    "doc_recall": 1.0,
-    "mrr": 0.8824731182795699
+    "answer_recall": 0.9161290322580645,
+    "doc_recall": 0.9935483870967742,
+    "mrr": 0.7951612903225809
   },
   {
     "tenant": "acme-insurance",
@@ -45,9 +45,9 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.603225806451613,
-    "doc_recall": 0.9903225806451613,
-    "mrr": 0.39053763440860206
+    "answer_recall": 0.5419354838709678,
+    "doc_recall": 0.9161290322580645,
+    "mrr": 0.3524731182795699
   },
   {
     "tenant": "acme-insurance",
@@ -55,9 +55,9 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.832258064516129,
-    "doc_recall": 1.0,
-    "mrr": 0.5789784946236558
+    "answer_recall": 0.7580645161290323,
+    "doc_recall": 0.9903225806451613,
+    "mrr": 0.5171505376344088
   },
   {
     "tenant": "acme-insurance",
@@ -65,9 +65,9 @@
     "chunks": 285,
     "questions": 310,
     "k": 5,
-    "answer_recall": 0.8838709677419355,
-    "doc_recall": 1.0,
-    "mrr": 0.8660752688172043
+    "answer_recall": 0.9161290322580645,
+    "doc_recall": 0.9935483870967742,
+    "mrr": 0.8738709677419354
   },
   {
     "tenant": "northwind-bank",
@@ -105,9 +105,9 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.9090909090909091,
+    "answer_recall": 0.8961038961038961,
     "doc_recall": 1.0,
-    "mrr": 0.814935064935065
+    "mrr": 0.7179653679653679
   },
   {
     "tenant": "northwind-bank",
@@ -115,9 +115,9 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 0.7792207792207793,
-    "doc_recall": 1.0,
-    "mrr": 0.5218614718614718
+    "answer_recall": 0.7402597402597403,
+    "doc_recall": 0.961038961038961,
+    "mrr": 0.465151515151515
   },
   {
     "tenant": "northwind-bank",
@@ -127,7 +127,7 @@
     "k": 5,
     "answer_recall": 0.8701298701298701,
     "doc_recall": 1.0,
-    "mrr": 0.667965367965368
+    "mrr": 0.618181818181818
   },
   {
     "tenant": "northwind-bank",
@@ -135,8 +135,8 @@
     "chunks": 128,
     "questions": 77,
     "k": 5,
-    "answer_recall": 1.0,
-    "doc_recall": 1.0,
-    "mrr": 0.8803030303030305
+    "answer_recall": 0.987012987012987,
+    "doc_recall": 0.987012987012987,
+    "mrr": 0.8854978354978356
   }
 ]
