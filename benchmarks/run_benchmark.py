@@ -53,13 +53,11 @@ def main() -> int:
             )
             rows.append(
                 f"| {t.tenant_id} | {label} | {rep.chunks} | {res.answer_recall:.1%} | "
-                f"{res.doc_recall:.1%} | {res.mrr:.3f} |"
+                f"{res.attributable_recall:.1%} | {res.doc_recall:.1%} | {res.mrr:.3f} |"
             )
-    print(
-        f"| tenant | config | chunks | answer recall@{base.tenants[0].retrieval.top_k} "
-        "| doc recall | MRR |"
-    )
-    print("|---|---|---|---|---|---|")
+    k = base.tenants[0].retrieval.top_k
+    print(f"| tenant | config | chunks | answer recall@{k} | attributable@{k} | doc recall | MRR |")
+    print("|---|---|---|---|---|---|---|")
     print("\n".join(rows))
     (HERE / "results.json").write_text(json.dumps(results, indent=2) + "\n")
     return 0

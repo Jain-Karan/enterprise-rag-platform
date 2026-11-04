@@ -18,6 +18,15 @@ def test_evaluate_metrics():
     }
     r = evaluate(lambda q: results[q], golden, k=5)
     assert r.answer_recall == 0.5
+    assert r.attributable_recall == 0.0  # the hit row never names its document
     assert r.doc_recall == 0.5
     assert r.mrr == 0.25
     assert r.misses == ["b"]
+
+
+def test_attributable_requires_title_in_chunk():
+    golden = [{"id": "a", "question": "q", "answer": "$5,000", "doc_id": "d1"}]
+    hit = Hit(
+        Chunk("d1#0", "d1", "t", "s", "Claims: Auto", "Claims: Auto > Limits\n| M | $5,000 |"), 1
+    )
+    assert evaluate(lambda q: [hit], golden, k=5).attributable_recall == 1.0
