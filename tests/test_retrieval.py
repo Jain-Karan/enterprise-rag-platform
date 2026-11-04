@@ -47,3 +47,27 @@ def test_coverage_reranker_scores_full_coverage_higher():
     assert r.score("senior adjuster limit", "Senior Adjuster limit is $5") > r.score(
         "senior adjuster limit", "limit for travel"
     )
+
+
+def test_long_answer_section_beats_short_boilerplate():
+    """Regression: breadcrumb terms used to be length-normalised with the body, so every short
+    boilerplate chunk of the right document outranked the long section holding the answer."""
+    from ragplatform.chunking import LayoutAwareChunker
+    from ragplatform.config import RetrievalConfig
+    from ragplatform.documents import Document
+    from ragplatform.store import TenantIndex
+
+    filler = "Owners review this document every year and record any exception. " * 6
+    rows = "\n".join(f"| Control {i} | ${i}0,000 |" for i in range(12))
+    md = (
+        "# Payments Runbook: Card Settlement\n\n## Training\n\nStaff train yearly.\n\n"
+        "## Definitions\n\n- Limit: a cap.\n\n"
+        f"## Cutoff and Limits\n\n{filler}\n\n| Control | Value |\n|---|---|\n"
+        f"| Single payment limit | $2,337,065 |\n{rows}\n\n## Document Control\n\nOwned by ops."
+    )
+    doc = Document("s:card.md", "s", "Payments Runbook: Card Settlement", md)
+    idx = TenantIndex("t", HashingEmbedder(64))
+    idx.add(LayoutAwareChunker().chunk(doc, "t"))
+    cfg = RetrievalConfig(mode="bm25", rerank=False, top_k=1)
+    hits = idx.search("single payment limit for card settlement payments", cfg)
+    assert "$2,337,065" in hits[0].chunk.text

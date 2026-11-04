@@ -47,6 +47,19 @@ class Chunk:
     text: str
     heading_path: tuple[str, ...] = ()
     metadata: dict[str, str] = field(default_factory=dict)
+    prefix: str = ""  # "Title > Section" breadcrumb that `text` starts with, if any
+
+    @property
+    def body(self) -> str:
+        """`text` without the breadcrumb."""
+        if self.prefix and self.text.startswith(self.prefix):
+            return self.text[len(self.prefix) :].lstrip()
+        return self.text
+
+    @property
+    def heading_text(self) -> str:
+        """Title and section path, indexed as its own BM25 field."""
+        return self.prefix or self.title
 
     def to_dict(self) -> dict:
         return {
@@ -58,6 +71,7 @@ class Chunk:
             "text": self.text,
             "heading_path": list(self.heading_path),
             "metadata": self.metadata,
+            "prefix": self.prefix,
         }
 
     @classmethod
@@ -71,4 +85,5 @@ class Chunk:
             text=d["text"],
             heading_path=tuple(d.get("heading_path", ())),
             metadata=dict(d.get("metadata", {})),
+            prefix=d.get("prefix", ""),
         )

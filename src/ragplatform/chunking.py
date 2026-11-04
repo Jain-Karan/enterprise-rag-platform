@@ -29,7 +29,12 @@ class Chunker(Protocol):
 
 
 def _make_chunk(
-    doc: Document, tenant_id: str, i: int, text: str, path: tuple[str, ...] = ()
+    doc: Document,
+    tenant_id: str,
+    i: int,
+    text: str,
+    path: tuple[str, ...] = (),
+    prefix: str = "",
 ) -> Chunk:
     return Chunk(
         chunk_id=f"{doc.doc_id}#{i}",
@@ -40,6 +45,7 @@ def _make_chunk(
         text=text,
         heading_path=path,
         metadata=dict(doc.metadata),
+        prefix=prefix,
     )
 
 
@@ -120,7 +126,8 @@ class LayoutAwareChunker:
             if pending:
                 p = path()
                 body = "\n\n".join(pending)
-                out.append(_make_chunk(doc, tenant_id, len(out), f"{header_for(p)}\n\n{body}", p))
+                head = header_for(p)
+                out.append(_make_chunk(doc, tenant_id, len(out), f"{head}\n\n{body}", p, head))
             pending, pending_tokens = [], 0
 
         title_key = doc.title.strip().casefold()
